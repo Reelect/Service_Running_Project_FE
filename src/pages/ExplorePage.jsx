@@ -1,13 +1,10 @@
 import styled from "styled-components";
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
 import Button from "../components/SquareButton";
 import HiddenHintComponent from "../components/Hint";
 import { ReactComponent as TList } from "../assets/explore/treasure_list.svg";
 import Text from "../components/Text";
-import { ReactComponent as TitleSvg } from "../assets/start/title.svg";
-import { ReactComponent as GistSvg } from "../assets/start/GIST.svg";
 import Chest from "../assets/explore/chest.png";
 import Bg from "../assets/start/bg.png";
 import F1 from "../assets/explore/1F.png";
