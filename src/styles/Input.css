@@ -1,0 +1,22 @@
+@import url("https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css");
+
+.input-style {
+  font-family: "Galmuri11", sans-serif;
+  font-weight: bold;
+  font-size: large;
+  background-image: url("../assets/start/SquareButton.png"); /* 이미지 경로를 적절히 설정하세요 */
+  background-size: contain;
+  background-color: transparent;
+  background-size: cover;
+  aspect-ratio: 175/ 60;
+  border: none;
+  color: black; /* 텍스트 색상은 원하는 대로 설정하세요 */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  margin-bottom: 10px;
+}

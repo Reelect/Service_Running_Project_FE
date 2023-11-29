@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "DNFBitBitv2";
+  font-style: normal;
+  font-weight: 400;
+  src: url("//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf")
+    format("opentype");
+}
+
+@import url("https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css");
+
+.text-style {
+  font-family: "DNFBitBitv2", sans-serif;
+  color: white;
+}
+
+.descript-style {
+  font-family: "Galmuri11", sans-serif;
+  font-size: large;
+  color: white;
+}
+
+.hint-style {
+  background-image: url("../assets/explore/hintbox.png");
+  background-size: cover;
+  aspect-ratio: 175/ 60;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}

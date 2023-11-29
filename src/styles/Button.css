@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "DNFBitBitv2";
+  font-style: normal;
+  font-weight: 400;
+  src: url("//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf")
+    format("opentype");
+}
+
+.button-style {
+  font-family: "DNFBitBitv2", sans-serif;
+  background-image: url("../assets/start/SquareButton.png"); /* 이미지 경로를 적절히 설정하세요 */
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  color: black; /* 텍스트 색상은 원하는 대로 설정하세요 */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 215px; /* 버튼의 너비를 조정하세요 */
+  height: 75px; /* 버튼의 높이를 조정하세요 */
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.sized-button-style {
+  font-family: "DNFBitBitv2", sans-serif;
+  background-image: url("../assets/start/SquareButton.png"); /* 이미지 경로를 적절히 설정하세요 */
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  color: black; /* 텍스트 색상은 원하는 대로 설정하세요 */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  aspect-ratio: 215 / 75;
+}
