@@ -2,9 +2,16 @@ import "../styles/Button.css";
 import "../styles/Input.css";
 
 function oninputPhone(target) {
-  target.value = target.value
-    .replace(/[^0-9]/g, "")
-    .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+  let value = target.value.replace(/[^0-9]/g, "");
+  if (value.length > 11) {
+    value = value.substring(0, 11);
+  }
+
+  value = value.replace(
+    /(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/,
+    "$1-$2-$3"
+  );
+  target.value = value;
 }
 
 function ImageTextInput({ plc, setValue }) {

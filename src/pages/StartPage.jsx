@@ -36,7 +36,9 @@ const StartPage = () => {
       <Link to="/register" style={{ textDecoration: "none" }}>
         <Button text="시작하기" fontSize={33} />
       </Link>
-      <Button text="현황보기" fontSize={33} />
+      <Link to="/leaderboard" style={{ textDecoration: "none" }}>
+        <Button text="현황보기" fontSize={33} />
+      </Link>
       <img src={Chest} alt="" width="50%" />
     </StartDiv>
   );

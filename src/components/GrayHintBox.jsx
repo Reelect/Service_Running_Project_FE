@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import "../styles/Text.css";
 
@@ -9,12 +9,12 @@ const CenteredText = styled.div`
   color: white;
 `;
 
-const ImageWithCenterText = ({ text, width = "75%" }) => {
+const GrayHintBox = forwardRef(({ text, width = "75%" }, childRef) => {
   return (
-    <div className="hint-style">
+    <div className="hint-style" ref={childRef}>
       <CenteredText style={{ width: width }}>{text}</CenteredText>
     </div>
   );
-};
+});
 
-export default ImageWithCenterText;
+export default GrayHintBox;

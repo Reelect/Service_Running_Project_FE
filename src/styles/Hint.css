@@ -1,0 +1,8 @@
+.hidden {
+  visibility: hidden;
+  position: absolute;
+}
+
+.visible {
+  max-height: 500px; /* 예상 최대 높이 */
+}
