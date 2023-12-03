@@ -10,9 +10,16 @@ const CenteredText = styled.div`
 `;
 
 const GrayHintBox = forwardRef(({ text, width = "75%" }, childRef) => {
+  const textWithBreaks = text.split("\n").map((line, index) => (
+    <React.Fragment key={index}>
+      {line}
+      <br />
+    </React.Fragment>
+  ));
+
   return (
     <div className="hint-style" ref={childRef}>
-      <CenteredText style={{ width: width }}>{text}</CenteredText>
+      <CenteredText style={{ width: width }}>{textWithBreaks}</CenteredText>
     </div>
   );
 });

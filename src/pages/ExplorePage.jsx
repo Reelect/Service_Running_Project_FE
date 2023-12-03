@@ -1,23 +1,23 @@
-import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import styled from "styled-components";
 
-import Button from "../components/SquareButton";
-import InputButton from "../components/InputButton";
-import HiddenHintComponent from "../components/Hint";
-import Text from "../components/Text";
 import Camera from "../components/Camera";
 import GrayHintBox from "../components/GrayHintBox";
+import HiddenHintComponent from "../components/Hint";
+import InputButton from "../components/InputButton";
+import Button from "../components/SquareButton";
+import Text from "../components/Text";
 
-import "../styles/Hint.css";
-import { ReactComponent as TList } from "../assets/explore/treasure_list.svg";
-import Chest from "../assets/explore/chest.png";
-import Bg from "../assets/start/bg.png";
 import F1 from "../assets/explore/1F.png";
 import F2 from "../assets/explore/2F.png";
+import Chest from "../assets/explore/chest.png";
 import questionBox from "../assets/explore/questionbox.png";
+import { ReactComponent as TList } from "../assets/explore/treasure_list.svg";
+import Bg from "../assets/start/bg.png";
+import "../styles/Hint.css";
 
 const StartDiv = styled.div`
   display: flex;
@@ -124,39 +124,43 @@ const ExplorePage = () => {
   };
 
   useEffect(() => {
-    console.log(result);
-    if (result.endsWith("haedong")) {
-      setIsCameraActive(false);
-      SetResult("");
-      const is_complete = handleButtonClick("treasure1");
-      fetchTreasureStatus();
-      if (is_complete === 1) {
-        clickHandler(7);
-      } else {
-        clickHandler(4);
+    const fetchData = async () => {
+      console.log(result);
+      if (result.endsWith("haedong")) {
+        setIsCameraActive(false);
+        SetResult("");
+        const is_complete = await handleButtonClick("treasure1");
+        await fetchTreasureStatus();
+        if (is_complete === 1) {
+          clickHandler(7);
+        } else {
+          clickHandler(4);
+        }
+      } else if (result.endsWith("gold")) {
+        setIsCameraActive(false);
+        SetResult("");
+        const is_complete = await handleButtonClick("treasure2");
+        await fetchTreasureStatus();
+        if (is_complete === 1) {
+          clickHandler(7);
+        } else {
+          clickHandler(5);
+        }
+      } else if (result.endsWith("secret")) {
+        setIsCameraActive(false);
+        SetResult("");
+        const is_complete = await handleButtonClick("treasure3");
+        await fetchTreasureStatus();
+        if (is_complete === 1) {
+          clickHandler(7);
+        } else {
+          clickHandler(6);
+        }
       }
-    } else if (result.endsWith("gold")) {
-      setIsCameraActive(false);
-      SetResult("");
-      const is_complete = handleButtonClick("treasure2");
-      fetchTreasureStatus();
-      if (is_complete === 1) {
-        clickHandler(7);
-      } else {
-        clickHandler(5);
-      }
-    } else if (result.endsWith("secret")) {
-      setIsCameraActive(false);
-      SetResult("");
-      const is_complete = handleButtonClick("treasure3");
-      fetchTreasureStatus();
-      if (is_complete === 1) {
-        clickHandler(7);
-      } else {
-        clickHandler(6);
-      }
-    }
-  }, [treasureStatus, result]);
+    };
+
+    fetchData();
+  }, [result]);
 
   const [userAddress, setUserAddress] = useState("");
 
@@ -186,10 +190,9 @@ const ExplorePage = () => {
       });
   };
 
-  const currentExplore = (Q) => {
-    console.log(Q);
-    if (Q === 0) {
-      return (
+  return (
+    <StartDiv>
+      {number === 0 ? (
         <>
           <TList width="80%" style={{ marginBottom: "", marginTop: "0" }} />
           <img src={Chest} alt="" width="50%" />
@@ -229,9 +232,7 @@ const ExplorePage = () => {
             }}
           />
         </>
-      );
-    } else if (Q === 1) {
-      return (
+      ) : number === 1 ? (
         <>
           <Text input="보물 탐색" bdr="2.5px black" fs="50px" />
           <Text input="1층" bdr="2.5px black" fs="40px" />
@@ -287,9 +288,7 @@ const ExplorePage = () => {
             }}
           />
         </>
-      );
-    } else if (Q === 2) {
-      return (
+      ) : number === 2 ? (
         <>
           <Text input="보물 탐색" bdr="2.5px black" fs="50px" />
           <Text input="2층" bdr="2.5px black" fs="40px" />
@@ -346,9 +345,7 @@ const ExplorePage = () => {
             }}
           />
         </>
-      );
-    } else if (Q === 3) {
-      return (
+      ) : number === 3 ? (
         <>
           <Text input="보물 탐색" bdr="2.5px black" fs="50px" />
           <Text input="전시관" bdr="2.5px black" fs="40px" />
@@ -410,9 +407,7 @@ const ExplorePage = () => {
             }}
           />
         </>
-      );
-    } else if (Q === 4) {
-      return (
+      ) : number === 4 ? (
         <>
           <Text input="1층 보물 발견!" bdr="2.5px black" fs="50px" />
           <Text
@@ -430,9 +425,7 @@ const ExplorePage = () => {
             }}
           />
         </>
-      );
-    } else if (Q === 5) {
-      return (
+      ) : number === 5 ? (
         <>
           <Text input="2층 보물 발견!" bdr="2.5px black" fs="50px" />
           <Text input="이미지 넣어줘용~" bdr="2.5px black" fs="40px" />
@@ -445,9 +438,7 @@ const ExplorePage = () => {
             }}
           />
         </>
-      );
-    } else if (Q === 6) {
-      return (
+      ) : number === 6 ? (
         <>
           <Text input="전시장 보물 발견!" bdr="2.5px black" fs="50px" />
           <Text input="이미지 넣어줘용~" bdr="2.5px black" fs="40px" />
@@ -460,16 +451,14 @@ const ExplorePage = () => {
             }}
           />
         </>
-      );
-    } else if (Q === 7) {
-      return (
+      ) : number === 7 ? (
         <>
           <Text input="🥳모든 보물 발견!" bdr="2.5px black" fs="45px" />
           <GrayHintBox
             text={
               treasureStatus.complete === 1
-                ? "축하합니다!모든 보물을 발견했어요! 마지막으로 아래 칸에 받으실 주소를 입력해주세요!(원내 주소는 간단히!)"
-                : "축하합니다!모든 보물을 발견했어요! 곧 입력한 주소로 전리품이 모험가님을 찾아갈거에요!"
+                ? "축하합니다!모든 보물을 발견했어요! \n 마지막으로 아래 칸에 받으실 주소를 입력해주세요!(원내 주소는 간단히!)"
+                : "축하합니다!모든 보물을 발견했어요! \n 곧 입력한 주소로 전리품이 모험가님을 찾아갈거에요!"
             }
           />
           <br />
@@ -494,11 +483,11 @@ const ExplorePage = () => {
             }}
           />
         </>
-      );
-    }
-  };
-
-  return <StartDiv>{currentExplore(number)}</StartDiv>;
+      ) : (
+        <></>
+      )}
+    </StartDiv>
+  );
 };
 
 export default ExplorePage;
