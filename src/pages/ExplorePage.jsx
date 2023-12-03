@@ -13,6 +13,9 @@ import Text from "../components/Text";
 
 import F1 from "../assets/explore/1F.png";
 import F2 from "../assets/explore/2F.png";
+import Haedong from "../assets/explore/haedong.jpeg";
+import Gold from "../assets/explore/gold.jpeg";
+import Exhibit from "../assets/explore/exhibit.webp";
 import Chest from "../assets/explore/chest.png";
 import questionBox from "../assets/explore/questionbox.png";
 import { ReactComponent as TList } from "../assets/explore/treasure_list.svg";
@@ -37,7 +40,6 @@ const handleButtonClick = async (whatTreasure) => {
     [whatTreasure]: 1,
   };
   let complete = 0;
-  console.log(patchData);
   await axios
     .patch(
       process.env.REACT_APP_API_URL + localStorage.getItem("ranger_id"),
@@ -54,6 +56,21 @@ const handleButtonClick = async (whatTreasure) => {
   return complete;
 };
 
+const canIGetGift = async () => {
+  let get_count = 0;
+  await axios
+    .get(process.env.REACT_APP_API_URL + "today_list")
+    .then((response) => {
+      get_count = response.data.count;
+      console.log("Aleready taken gifts!", get_count);
+    })
+    .catch((error) => {
+      console.error("Error patch data:", error);
+      alert("보물 발견에 실패했습니다. 다시 시도해주세요!");
+    });
+  return get_count;
+};
+
 const ExplorePage = () => {
   const navigate = useNavigate();
 
@@ -66,7 +83,6 @@ const ExplorePage = () => {
             alert("등록되지 않은 사용자 정보입니다. 다시 입력해주세요!");
             navigate("/register");
           }
-          return true;
         })
         .catch((error) => {
           console.error("Error fetching treasure status:", error);
@@ -95,13 +111,13 @@ const ExplorePage = () => {
     treasure3: 0,
     complete: 0,
   });
+  const [giftCount, setGiftCount] = useState(null);
 
   const fetchTreasureStatus = async () => {
     try {
       const response = await axios.get(
         process.env.REACT_APP_API_URL + localStorage.getItem("ranger_id")
       );
-      console.log(response.data);
       setTreasureStatus(response.data);
     } catch (error) {
       console.error("Error fetching treasure status:", error);
@@ -109,11 +125,11 @@ const ExplorePage = () => {
   };
 
   useEffect(() => {
-    if (treasureStatus.complete > 0) {
+    if (treasureStatus.complete > 0 && number === 0) {
       alert("모든 보물을 찾으셨습니다! 축하드립니다!");
       clickHandler(7);
     }
-  }, [treasureStatus.complete]);
+  }, [treasureStatus.complete, number]);
 
   const handleStartButtonClick = () => {
     setIsCameraActive(!isCameraActive); // 카메라 상태를 토글
@@ -125,42 +141,40 @@ const ExplorePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(result);
       if (result.endsWith("haedong")) {
+        alert("해동관 보물 발견!");
         setIsCameraActive(false);
         SetResult("");
-        const is_complete = await handleButtonClick("treasure1");
+        await handleButtonClick("treasure1");
         await fetchTreasureStatus();
-        if (is_complete === 1) {
-          clickHandler(7);
-        } else {
-          clickHandler(4);
-        }
+        clickHandler(4);
       } else if (result.endsWith("gold")) {
+        alert("G.L.O.D. 보물 발견!");
         setIsCameraActive(false);
         SetResult("");
-        const is_complete = await handleButtonClick("treasure2");
+        await handleButtonClick("treasure2");
         await fetchTreasureStatus();
-        if (is_complete === 1) {
-          clickHandler(7);
-        } else {
-          clickHandler(5);
-        }
+        clickHandler(5);
       } else if (result.endsWith("secret")) {
+        alert("전시관 보물 발견!");
         setIsCameraActive(false);
         SetResult("");
-        const is_complete = await handleButtonClick("treasure3");
+        await handleButtonClick("treasure3");
         await fetchTreasureStatus();
-        if (is_complete === 1) {
-          clickHandler(7);
-        } else {
-          clickHandler(6);
-        }
+        clickHandler(6);
       }
     };
 
     fetchData();
   }, [result]);
+
+  useEffect(() => {
+    const fetchCount = async () => {
+      const count_temp = await canIGetGift();
+      setGiftCount(count_temp);
+    };
+    fetchCount();
+  }, []);
 
   const [userAddress, setUserAddress] = useState("");
 
@@ -170,7 +184,7 @@ const ExplorePage = () => {
 
   const submitUserAddress = () => {
     const submitData = {
-      complete: 2,
+      complete: giftCount >= 3 ? 3 : 2,
       address: userAddress,
     };
 
@@ -410,12 +424,14 @@ const ExplorePage = () => {
       ) : number === 4 ? (
         <>
           <Text input="1층 보물 발견!" bdr="2.5px black" fs="50px" />
-          <Text
-            input="이미지 넣어줘용~"
-            isTitle={false}
-            bdr="2.5px black"
-            fs="40px"
+          <img
+            className="framed-image"
+            src={Haedong}
+            alt=""
+            style={{ width: "80%" }}
           />
+          <br />
+          <GrayHintBox text="이곳은 해동과학문화재단에서 5억원을 기부받아 지스트 학생들이 벤처 창업에 힘쓸 수 있도록 구성된 공간입니다!" />
           <br />
           <Button
             text="다른 보물 찾으러 가기"
@@ -428,7 +444,14 @@ const ExplorePage = () => {
       ) : number === 5 ? (
         <>
           <Text input="2층 보물 발견!" bdr="2.5px black" fs="50px" />
-          <Text input="이미지 넣어줘용~" bdr="2.5px black" fs="40px" />
+          <img
+            className="framed-image"
+            src={Gold}
+            alt=""
+            style={{ width: "80%" }}
+          />
+          <br />
+          <GrayHintBox text="이곳은 GIST 구성원이라면 누구나 자원봉사자로 참여할 수 있는 G.O.L.D. 입니다! 샘솟는 재능을 이곳에서 뽐내주세요!" />
           <br />
           <Button
             text="다른 보물 찾으러 가기"
@@ -441,7 +464,15 @@ const ExplorePage = () => {
       ) : number === 6 ? (
         <>
           <Text input="전시장 보물 발견!" bdr="2.5px black" fs="50px" />
-          <Text input="이미지 넣어줘용~" bdr="2.5px black" fs="40px" />
+          <img
+            className="framed-image"
+            src={Exhibit}
+            alt=""
+            style={{ width: "80%" }}
+          />
+          <br />
+          <GrayHintBox text="전시를 자세히 살펴봐 주셨군요! 나머지 다른 전시 작품도 천천히 즐기고, 기말고사 준비기간 조금이나마 기분 환기하길 바랍니다!" />
+          <br />
           <br />
           <Button
             text="다른 보물 찾으러 가기"
@@ -456,9 +487,13 @@ const ExplorePage = () => {
           <Text input="🥳모든 보물 발견!" bdr="2.5px black" fs="45px" />
           <GrayHintBox
             text={
-              treasureStatus.complete === 1
-                ? "축하합니다!모든 보물을 발견했어요! 마지막으로 아래 칸에 받으실 주소를 입력해주세요! \n (원내 주소는 간단히!)"
-                : "축하합니다!모든 보물을 발견했어요! 곧 입력한 주소로 전리품이 모험가님을 찾아갈거에요!"
+              giftCount >= 3
+                ? treasureStatus.complete === 1
+                  ? "오늘은 이미 모든 보물을 찾으셨어요! 그래도 주소를 입력해주시면 추첨을 통해 상품을 보내드릴게요!"
+                  : "모든 보물을 발견한 당신은 우승자! 메인 페이지에서 현황확인 버튼을 눌러보세요!"
+                : treasureStatus.complete === 1
+                ? "축하합니다! 모든 보물을 발견했어요! 마지막으로 아래 칸에 받으실 주소를 입력해주세요! \n (원내 주소는 간단히!)"
+                : "축하합니다! 모든 보물을 발견했어요! 곧 입력한 주소로 전리품이 모험가님을 찾아갈거에요!"
             }
           />
           <br />

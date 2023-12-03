@@ -7,6 +7,7 @@ const Text = ({
   bdr = "1.5px black",
   is_title = true,
   is_nick = false,
+  is_order = false,
 }) => {
   const buttonStyle = {
     fontSize: `${fs}`, // fontSize props를 받아서 적용합니다.
@@ -14,6 +15,9 @@ const Text = ({
   };
   if (input === "전시관" || is_nick) {
     buttonStyle.color = "#ffef00";
+    buttonStyle.WebkitTextStroke = "1.7px black";
+  } else if (is_order) {
+    buttonStyle.color = "#ee4444";
     buttonStyle.WebkitTextStroke = "1.7px black";
   }
   if (is_title) {

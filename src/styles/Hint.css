@@ -6,3 +6,10 @@
 .visible {
   max-height: 500px; /* 예상 최대 높이 */
 }
+
+.framed-image {
+  border: 5px solid #bda87f; /* Outer border color */
+  box-shadow: 0 0 0 10px #f4f4f4; /* Inner border color and width */
+  display: block;
+  margin: 20px auto;
+}

@@ -13,6 +13,13 @@ function Button({ text, fontSize, onClick, width = "215px", height = "75px" }) {
     buttonStyle.width = width;
     buttonStyle.height = height;
   }
+
+  if (text === "완료!") {
+    buttonStyle.color = "#aaff11";
+    buttonStyle.WebkitTextStroke = "1.7px black";
+    buttonStyle.width = width;
+    buttonStyle.height = height;
+  }
   // END: ed8c6549bwf9
 
   return (

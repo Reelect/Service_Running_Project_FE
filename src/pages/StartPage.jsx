@@ -33,7 +33,7 @@ const StartPage = () => {
       <br />
       <br />
       <DescriptionSvg width="80%" />
-      <Link to="/register" style={{ textDecoration: "none" }}>
+      <Link to="/intro" style={{ textDecoration: "none" }}>
         <Button text="시작하기" fontSize={33} />
       </Link>
       <Link to="/leaderboard" style={{ textDecoration: "none" }}>

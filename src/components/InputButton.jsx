@@ -11,6 +11,7 @@ function ImageTextInput({ plc, setValue }) {
         onChange={(e) => {
           setValue(e.target.value);
         }}
+        maxLength={29}
         // 필요한 경우 추가 스타일 또는 이벤트 핸들러를 추가하세요.
       />
     </div>
