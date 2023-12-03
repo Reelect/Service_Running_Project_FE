@@ -7,6 +7,7 @@ const CenteredText = styled.div`
   font-family: "Galmuri11", sans-serif;
   font-size: large;
   color: white;
+  /* word-break: keep-all; */
 `;
 
 const GrayHintBox = forwardRef(({ text, width = "75%" }, childRef) => {
