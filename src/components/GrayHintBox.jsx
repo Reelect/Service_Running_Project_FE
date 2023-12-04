@@ -10,7 +10,7 @@ const CenteredText = styled.div`
   /* word-break: keep-all; */
 `;
 
-const GrayHintBox = forwardRef(({ text, width = "75%" }, childRef) => {
+const GrayHintBox = forwardRef(({ text, width = "70%" }, childRef) => {
   const textWithBreaks = text.split("\n").map((line, index) => (
     <React.Fragment key={index}>
       {line}
