@@ -502,7 +502,7 @@ const ExplorePage = () => {
               plc="주소를 입력해주세요."
               value={userAddress}
               setValue={(value) => {
-                setUserAddress((address) => address + value);
+                setUserAddress(value);
               }}
             />
           ) : null}
