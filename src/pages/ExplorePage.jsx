@@ -370,7 +370,7 @@ const ExplorePage = () => {
             style={{ margin: "10px" }}
           />
           <HiddenHintComponent
-            hint={"전시장의 모든 것이 보물일지도 몰라요!"}
+            hint={"전시장의 작품들을 시간을 갖고 천천히 감상해보세요!"}
             margin="111px"
           />
           <Button

@@ -99,7 +99,7 @@ const RegisterPage = () => {
       <Text input="당신의 정보를 입력해주세요!" fs="25px" />
       <Nickname width="30%" />
       <Button
-        plc="이름을 입력해주세요."
+        plc="닉네임을 입력해주세요."
         value={formValue.name}
         setValue={(value) => {
           setFormValue((state) => ({
