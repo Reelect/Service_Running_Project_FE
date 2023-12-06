@@ -184,7 +184,7 @@ const ExplorePage = () => {
 
   const submitUserAddress = () => {
     const submitData = {
-      complete: giftCount >= 3 ? 3 : 2,
+      complete: giftCount >= 5 ? 3 : 2,
       address: userAddress,
     };
 
@@ -487,7 +487,7 @@ const ExplorePage = () => {
           <Text input="🥳모든 보물 발견!" bdr="2.5px black" fs="45px" />
           <GrayHintBox
             text={
-              giftCount >= 3
+              giftCount >= 5
                 ? treasureStatus.complete === 1
                   ? "오늘은 이미 모든 보물을 찾으셨어요! 그래도 주소를 입력해주시면 추첨을 통해 상품을 보내드릴게요!"
                   : "모든 보물을 발견한 당신은 우승자! 메인 페이지에서 현황확인 버튼을 눌러보세요!"
